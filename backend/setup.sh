@@ -1,3 +1,3 @@
-pip install flask
-python pip install flask
-python -m pip install flask
+pip install flask requests SpeechRecognition PyAudio
+python pip install flask requests SpeechRecognition PyAudio
+python -m pip install flask requests SpeechRecognition PyAudio
