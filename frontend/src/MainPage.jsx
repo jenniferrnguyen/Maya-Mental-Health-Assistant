@@ -157,17 +157,26 @@ const Response = (props) => {
 
 export default function MainPage({name}) {
     const [resp, setResp] = useState("")
+    const [name1, setName] = useState("")
+  
+    const msg = new SpeechSynthesisUtterance()
+
+    useEffect(() => {
+      setName(localStorage.getItem("name"));
+      let text = name ? "Hey " + name + ", what's on your mind?" : "Hey, what's on your mind?"
+      msg.text = text
+      window.speechSynthesis.speak(msg)
+    }, []);
+
 
     return (
         <main className="bg-blue-500 w-screen h-screen grid place-items-center
         bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
-          <h1 className="text-6xl text-white m-9">Hey {name}, what's on your mind?</h1>
-          <h1> {name} </h1>
         <div className="text-2xl text-white">
-            <Dictaphone />
+          <h1 className="text-6xl text-white m-9">Hey {name}, what's on your mind?</h1>
+            <Dictaphone/>
             <Response resp={resp}/>
         </div>
-        <button className="btn bg-white text-black" onClick={() => setResp("This is random ass text")}>ahhhhh</button>
         </main>
     )
 }

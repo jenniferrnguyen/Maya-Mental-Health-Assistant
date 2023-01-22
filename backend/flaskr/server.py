@@ -1,7 +1,8 @@
 import os
 import json as JSON
+from flask_cors import CORS
 
-from flask import Flask
+from flask import Flask, request
 
 
 
@@ -22,14 +23,18 @@ def create_app(test_config = None):
     except OSError:
         pass
 
+    @app.route("/name", methods = ['POST', 'GET'])
+    def set_name():
+        if request.method == 'POST': # This worked exactly once and never again, will debug in morning
+            print(request.json) # TODO https://metabox.io/send-get-post-request-with-javascript-fetch-api/
+            print("nice")
+            return "Success", 200
+        return "Fail", 400
+
 
     @app.route("/upload")
     def upload():
         return "sanity"
-
-    @app.route("/")
-    def hello_world():
-        return "<p>Hello, World!</p>"
 
     @app.route("/welcome")
     def welcome():
@@ -73,7 +78,10 @@ def create_app(test_config = None):
     def end():
         return JSON.dumps("No problem, Grace. I’m happy to help anytime.")
 
+    cors = CORS(app, resources={'/*':{'origins': 'http://localhost:3000'}}) 
+
     return app
 
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app = create_app()
+    app.run()

@@ -1,5 +1,4 @@
-import { useEffect, React, useState } from 'react';
-import {BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect, useState, React } from 'react';
 import Speech from 'react-speech';
 
 import MainPage from './MainPage';
@@ -8,6 +7,8 @@ export default function Homepage() {
 
     const [message, setMessage] = useState(null);
     const [userName, setUsername] = useState(false)
+    const [name, setName] = useState("")
+    const msg = new SpeechSynthesisUtterance()
 
     const submit = (e) => {
         e.preventDefault();
@@ -15,11 +16,11 @@ export default function Homepage() {
         setUsername(true)
     }
 
+
     useEffect(() => {
-
-    }, [message])
-
-
+        msg.text = "Hi, I'm Maya, what's your name?"
+        window.speechSynthesis.speak(msg)
+    }, [])
 
     return (
         <>
@@ -35,12 +36,13 @@ export default function Homepage() {
                 <form onSubmit={submit}>
                     <div className="form-control w-full max-w-xs ">
                         <input onChange={(event) => setMessage(event.target.value)} type="text" placeholder="Your Name Here" className="input input-bordered w-full max-w-xs bg-white" />
-                        <button to="/Mainpage" className="btn btn-wide glass bg-white text-blue-600 m-2 mt-5">Continue</button>
-
+                        <button to="/Mainpage" onClick={
+                            () => {
+                                localStorage.setItem("name", message)
+                            }
+                        } className="btn btn-wide glass bg-white text-blue-600 m-2 mt-5">Continue</button>
                     </div>
                 </form>
-                
-                {/* TODO: Send Name to Backend, read name from  */}
                 <a href="/Mainpage" className="text-sm m-2 text-white hover:text-blue-600">Continue without name</a>
             </div>
             
