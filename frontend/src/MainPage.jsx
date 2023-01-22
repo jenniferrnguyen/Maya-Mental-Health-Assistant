@@ -155,13 +155,14 @@ const Response = (props) => {
     );
 }
 
-export default function MainPage() {
+export default function MainPage({name}) {
     const [resp, setResp] = useState("")
 
     return (
         <main className="bg-blue-500 w-screen h-screen grid place-items-center
         bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
-          <h1 className="text-6xl text-white m-9">Hey *user name or nothing*, what's on your mind?</h1>
+          <h1 className="text-6xl text-white m-9">Hey {name}, what's on your mind?</h1>
+          <h1> {name} </h1>
         <div className="text-2xl text-white">
             <Dictaphone />
             <Response resp={resp}/>
