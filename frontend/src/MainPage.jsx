@@ -20,14 +20,9 @@ const Dictaphone = () => {
     }
   
     return (
-      <div className="grid place-items-center">
-        <div className="bg-white text-black rounded-lg p-10 my-5">
-          <p>{transcript}</p>
-        </div>
-        <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
-        <div>
-          <button className="btn btn-success mx-5" onClick={() => {
-          SpeechRecognition.startListening
+      <div>
+        <p>Microphone: {listening ? 'on' : 'off'}</p>
+        <button className="btn btn-success mx-5" onClick={() => {
           Mp3Recorder.start().then(() =>  {
             //something
           }).catch((e) => {
