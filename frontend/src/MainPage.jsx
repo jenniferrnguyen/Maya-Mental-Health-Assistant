@@ -30,7 +30,6 @@ const Dictaphone = () => {
           });
           }}>Start</button>
           <button className="btn btn-error mx-5" onClick={() => {
-          SpeechRecognition.stopListening
           Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
             const file = new File(buffer, "input.mp3", {
               type: blob.type,
@@ -47,10 +46,7 @@ const Dictaphone = () => {
           }}>Stop</button>
           <button className="btn btn-warning mx-5" onClick={resetTranscript}>Reset</button>
         </div>
-      </div>
     );
-
-    
   };
 
 const Response = (props) => {
