@@ -30,6 +30,7 @@ const Dictaphone = () => {
           });
           }}>Start</button>
           <button className="btn btn-error mx-5" onClick={() => {
+          SpeechRecognition.stopListening()
           Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
             const file = new File(buffer, "input.mp3", {
               type: blob.type,
@@ -61,7 +62,8 @@ export default function MainPage() {
     const [resp, setResp] = useState("")
 
     return (
-        <main className="bg-blue-500 w-screen h-screen grid place-items-center">
+        <main className="bg-blue-500 w-screen h-screen grid place-items-center
+        bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
           <h1 className="text-6xl text-white">Let's Talk!</h1>
         <div className="text-2xl text-white">
             <Dictaphone />
