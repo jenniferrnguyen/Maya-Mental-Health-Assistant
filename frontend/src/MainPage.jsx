@@ -1,57 +1,61 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import MicRecorder from 'mic-recorder-to-mp3';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { checkPropTypes } from 'prop-types';
 
 const Dictaphone = () => {
-    const {
-      transcript,
-      listening,
-      resetTranscript,
-      browserSupportsSpeechRecognition
-    } = useSpeechRecognition();
 
-    const MicRecorder = require('mic-recorder-to-mp3');
+  const recorder = useRef(null);
+  const audioPlayer = useRef(null) //Ref for the HTML Audio Tag
+  const [blobURL, setBlobUrl] = useState(null)
+  const [audioFile, setAudioFile] = useState(null)
+  const [isRecording, setIsRecording] = useState(null)
 
-    const Mp3Recorder = new MicRecorder({ bitRate: 128});
+  useEffect(() => {
+    //Declares the recorder object and stores it inside of ref
+    recorder.current = new MicRecorder({ bitRate: 128 })
+  }, [])
+
+
+  const startRecording = () => {
+    recorder.current.start().then(() => {
+      setIsRecording(true)
+    })
+  }
+
+
+  const stopRecording = () => {
+    recorder.current
+      .stop()
+      .getMp3()
+      .then(([buffer, blob]) => {
+        const file = new File(buffer, "audio.mp3", {
+          type: blob.type,
+          lastModified: Date.now(),
+        })
+        const newBlobUrl = URL.createObjectURL(blob)
+        setBlobUrl(newBlobUrl)
+        setIsRecording(false)
+        setAudioFile(file)
+      })
+      .catch((e) => console.log(e))
+  }
   
-    if (!browserSupportsSpeechRecognition) {
-      return <span>Browser doesn't support speech recognition.</span>;
-    }
+
   
     return (
-      <div place-items-center>
+      <div>
+        <div place-items-center>
         <div className="bg-white text-black rounded-lg p-10 my-5">
         <p>{transcript}</p>
         </div>
-        <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
-        <div>
-        <button className="btn btn-success m-5" onClick={() => {
-          Mp3Recorder.start().then(() =>  {
-            //something
-          }).catch((e) => {
-            console.error(e);
-          });
-          }}>Start</button>
-          <button className="btn btn-error m-5" onClick={() => {
-          SpeechRecognition.stopListening()
-          Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
-            const file = new File(buffer, "input.mp3", {
-              type: blob.type,
-              lastModified: Date.now()
-            });
-
-            const player = new Audio(URL.createObjectURL(file));
-            player.play();
-            
-            }).catch((e) => {
-              alert("We could not retrieve your message");
-              console.log(e);
-            });
-          }}>Stop</button>
-          <button className="btn btn-warning m-5" onClick={resetTranscript}>Reset</button>
-
-        </div>
+        <audio ref={audioPlayer} src={blobURL} controls='controls' />
+          <button className="btn btn-success mx-5" disabled={isRecording} onClick={startRecording}>
+          Start
+          </button>
+          <button className="btn btn-error mx-5" disabled ={!isRecording} onClick={stopRecording}>
+            Stop</button>
+          <button className="btn btn-warning mx-5" onClick={null}>Reset</button>
         </div>
     );
   };
@@ -79,3 +83,4 @@ export default function MainPage() {
         </main>
     )
 }
+

@@ -23,6 +23,10 @@ def create_app(test_config = None):
         pass
 
 
+    @app.route("/upload")
+    def upload():
+        return "sanity"
+
     @app.route("/")
     def hello_world():
         return "<p>Hello, World!</p>"
