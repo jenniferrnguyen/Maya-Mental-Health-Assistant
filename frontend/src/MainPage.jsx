@@ -50,10 +50,7 @@ const Dictaphone = () => {
           }}>Stop</button>
           <button className="btn btn-warning mx-5" onClick={resetTranscript}>Reset</button>
         </div>
-      </div>
     );
-
-    
   };
 
 const Response = (props) => {
