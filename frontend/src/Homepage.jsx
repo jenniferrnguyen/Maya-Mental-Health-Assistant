@@ -45,7 +45,9 @@ export default function Homepage() {
                 </form>
                 <a href="/Mainpage" className="text-sm m-2 text-white hover:text-blue-600">Continue without name</a>
             </div>
-            
+            <div>
+                <p className="text-white">By: Grace, Bob, Brian, Jennifer</p>
+            </div>
         </main>)
         }
         
