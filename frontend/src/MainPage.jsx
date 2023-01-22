@@ -1,4 +1,5 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import MicRecorder from 'mic-recorder-to-mp3';
 import { useState } from 'react';
 
 const Dictaphone = () => {
@@ -8,6 +9,10 @@ const Dictaphone = () => {
       resetTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
+
+    const MicRecorder = require('mic-recorder-to-mp3');
+
+    const Mp3Recorder = new MicRecorder({ bitRate: 128});
   
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser doesn't support speech recognition.</span>;
@@ -16,12 +21,37 @@ const Dictaphone = () => {
     return (
       <div>
         <p>Microphone: {listening ? 'on' : 'off'}</p>
-        <button onClick={SpeechRecognition.startListening}>Start</button>
-        <button onClick={SpeechRecognition.stopListening}>Stop</button>
+        <button onClick={() => {
+          SpeechRecognition.startListening()
+          Mp3Recorder.start().then(() =>  {
+            //something
+          }).catch((e) => {
+            console.error(e);
+          });
+          }}>Start</button>
+        <button onClick={() => {
+          SpeechRecognition.stopListening()
+
+          Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
+            const file = new File(buffer, "input.mp3", {
+              type: blob.type,
+              lastModified: Date.now()
+            });
+
+            const player = new Audio(URL.createObjectURL(file));
+            player.play();
+            
+            }).catch((e) => {
+              alert("We could not retrieve your message");
+              console.log(e);
+            });
+          }}>Stop</button>
         <button onClick={resetTranscript}>Reset</button>
         <p>{transcript}</p>
       </div>
     );
+
+    
   };
 
 const Response = () => {
