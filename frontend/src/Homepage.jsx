@@ -1,17 +1,20 @@
+import { useEffect, React } from 'react';
+import Speech from 'react-speech';
 
-let Name = null;
 
 export default function Homepage() {
+
+    useEffect(() => {
+        
+    }, [])
+
     return (
-        <main className="grid place-items-center w-screen h-screen bg-blue-400">
-            <div className="mt-10">
-                <h1 className="text-2xl text-white">Hi, I'm Maya</h1>
-            </div>
+        <main className="grid place-items-center w-screen h-screen 
+        bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
             <div className="grid place-items-center w-3/4 rounded bg-">
+                <h1 className="text-6xl text-white">Hi, I'm Maya</h1>
+                <span className="label-text text-lg text-white my-5">What is your name?</span>
                 <div className="form-control w-full max-w-xs ">
-                    <label className="label">
-                      <span className="label-text text-lg text-white">What is your name?</span>
-                    </label>
                     <input type="text" placeholder="Your Name Here" className="input input-bordered w-full max-w-xs bg-white" />
                 </div>
                 <a href="/Mainpage" className="btn btn-wide glass bg-white text-blue-600 m-2 mt-5">Continue</a>
