@@ -143,21 +143,19 @@ const Dictaphone = () => {
   
   //We really don't need the audio player but it's a good sanity check to make sure the audio is recording
     return (
-      <div>
-        <div place-items-center>
-        <div className="grid place-items-center">
+      <div className="grid place-items-center">
         <div className="bg-white text-black rounded-lg p-10 my-5">
           <p>{transcript}</p>
         </div>
         <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
         {/* <audio ref={audioPlayer} src={blobURL} controls='controls' />          */}
+        <div>
           <button className="btn btn-success m-5"  onClick={startRecording}>
           Start
           </button>
           <button className="btn btn-error m-5" onClick={stopRecording}>
             Stop</button>
           <button className="btn btn-warning m-5" onClick={resetTranscript}>Reset</button>
-        </div>
         </div>
         </div>
     );
