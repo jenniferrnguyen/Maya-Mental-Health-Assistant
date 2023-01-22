@@ -45,6 +45,10 @@ const Dictaphone = () => {
   
     return (
       <div>
+        <div place-items-center>
+        <div className="bg-white text-black rounded-lg p-10 my-5">
+        <p>{transcript}</p>
+        </div>
         <audio ref={audioPlayer} src={blobURL} controls='controls' />
           <button className="btn btn-success mx-5" disabled={isRecording} onClick={startRecording}>
           Start
@@ -68,8 +72,9 @@ export default function MainPage() {
     const [resp, setResp] = useState("")
 
     return (
-        <main className="bg-blue-500 w-screen h-screen grid place-items-center">
-          <h1 className="text-6xl text-white">Let's Talk!</h1>
+        <main className="bg-blue-500 w-screen h-screen grid place-items-center
+        bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
+          <h1 className="text-6xl text-white m-9">Hey *user name or nothing*, what's on your mind?</h1>
         <div className="text-2xl text-white">
             <Dictaphone />
             <Response resp={resp}/>
