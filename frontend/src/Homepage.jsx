@@ -19,7 +19,7 @@ export default function Homepage() {
                 </div>
                 <a href="/Mainpage" className="btn btn-wide glass bg-white text-blue-600 m-2 mt-5">Continue</a>
                 {/* TODO: Send Name to Backend, read name from  */}
-                <a className="text-sm m-2 text-white hover:text-blue-600">Continue without name</a>
+                <a href="/Mainpage" className="text-sm m-2 text-white hover:text-blue-600">Continue without name</a>
             </div>
             
         </main>
