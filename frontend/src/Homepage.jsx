@@ -14,8 +14,8 @@ export default function Homepage() {
                     </label>
                     <input type="text" placeholder="Your Name Here" className="input input-bordered w-full max-w-xs bg-white" />
                 </div>
-                <button className="btn btn-wide glass bg-white text-blue-600 m-2">Continue</button>
-                <button className="text-sm m-2 text-white">Continue without name</button>
+                <button className="btn btn-wide glass bg-white text-blue-600 m-2 mt-5">Continue</button>
+                <button className="text-sm m-2 text-white hover:text-blue-600">Continue without name</button>
             </div>
             
         </main>
