@@ -20,8 +20,12 @@ const Dictaphone = () => {
     }
   
     return (
-      <div>
-        <p>Microphone: {listening ? 'on' : 'off'}</p>
+      <div place-items-center>
+        <div className="bg-white text-black rounded-lg p-10 my-5">
+        <p>{transcript}</p>
+        </div>
+        <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
+        <div>
         <button className="btn btn-success mx-5" onClick={() => {
           Mp3Recorder.start().then(() =>  {
             //something
@@ -46,6 +50,8 @@ const Dictaphone = () => {
             });
           }}>Stop</button>
           <button className="btn btn-warning mx-5" onClick={resetTranscript}>Reset</button>
+
+        </div>
         </div>
     );
   };
@@ -64,7 +70,7 @@ export default function MainPage() {
     return (
         <main className="bg-blue-500 w-screen h-screen grid place-items-center
         bg-gradient-to-tr from-blue-200 to-blue-600 via-blue-400 animate-gradient-xy">
-          <h1 className="text-6xl text-white">Let's Talk!</h1>
+          <h1 className="text-6xl text-white m-8">Hey *user name or nothing*, what's on your mind?</h1>
         <div className="text-2xl text-white">
             <Dictaphone />
             <Response resp={resp}/>
