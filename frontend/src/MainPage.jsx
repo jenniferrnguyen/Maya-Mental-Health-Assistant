@@ -80,9 +80,9 @@ function speech(index, name) {
   }
 }
 
-export default function MainPage({name}) {
+export default function MainPage() {
     const [resp, setResp] = useState("")
-    const [name1, setName] = useState("")
+    const [name, setName] = useState("")
     const [index, setIndex] = useState(2)
     const [isTurn, setTurn] = useState(false);
   
