@@ -1,4 +1,5 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import MicRecorder from 'mic-recorder-to-mp3';
 import { useState } from 'react';
 import { checkPropTypes } from 'prop-types';
 
@@ -9,6 +10,10 @@ const Dictaphone = () => {
       resetTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
+
+    const MicRecorder = require('mic-recorder-to-mp3');
+
+    const Mp3Recorder = new MicRecorder({ bitRate: 128});
   
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser doesn't support speech recognition.</span>;
@@ -21,12 +26,36 @@ const Dictaphone = () => {
         </div>
         <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
         <div>
-          <button className="btn btn-success mx-5" onClick={SpeechRecognition.startListening}>Start</button>
-          <button className="btn btn-error mx-5" onClick={SpeechRecognition.stopListening}>Stop</button>
+          <button className="btn btn-success mx-5" onClick={() => {
+          SpeechRecognition.startListening
+          Mp3Recorder.start().then(() =>  {
+            //something
+          }).catch((e) => {
+            console.error(e);
+          });
+          }}>Start</button>
+          <button className="btn btn-error mx-5" onClick={() => {
+          SpeechRecognition.stopListening
+          Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
+            const file = new File(buffer, "input.mp3", {
+              type: blob.type,
+              lastModified: Date.now()
+            });
+
+            const player = new Audio(URL.createObjectURL(file));
+            player.play();
+            
+            }).catch((e) => {
+              alert("We could not retrieve your message");
+              console.log(e);
+            });
+          }}>Stop</button>
           <button className="btn btn-warning mx-5" onClick={resetTranscript}>Reset</button>
         </div>
       </div>
     );
+
+    
   };
 
 const Response = (props) => {
