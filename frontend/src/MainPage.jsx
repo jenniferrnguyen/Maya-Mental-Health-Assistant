@@ -27,7 +27,6 @@ const Dictaphone = () => {
         <p className="text-center">Microphone: {listening ? 'on' : 'off'}</p>
         <div>
           <button className="btn btn-success mx-5" onClick={() => {
-          SpeechRecognition.startListening
           Mp3Recorder.start().then(() =>  {
             //something
           }).catch((e) => {
@@ -35,7 +34,6 @@ const Dictaphone = () => {
           });
           }}>Start</button>
           <button className="btn btn-error mx-5" onClick={() => {
-          SpeechRecognition.stopListening
           Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
             const file = new File(buffer, "input.mp3", {
               type: blob.type,
